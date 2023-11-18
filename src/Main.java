@@ -16,7 +16,7 @@ public class Main implements Support {
     }
 
     private void runDays() throws Exception {
-        Day[] days = {new Day1(), new Day2()};
+        Day[] days = {new Day1(), new Day2(), new Day3()};
         for (var day : days) {
             day.run(this);
         }
