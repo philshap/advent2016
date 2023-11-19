@@ -33,7 +33,7 @@ public class Day4 implements Day {
             return frequencies.entrySet().stream()
                     .sorted(Map.Entry.<Character, Integer>comparingByValue().reversed().thenComparing(Map.Entry::getKey))
                     .map(Map.Entry::getKey)
-                    .filter(Predicate.not(c -> c == '-'))
+                    .filter(c -> c != '-')
                     .collect(collectToString())
                     .substring(0, 5);
         }
