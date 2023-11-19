@@ -1,7 +1,5 @@
 import java.util.*;
-import java.util.function.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collector;
 
 public class Day4 implements Day {
     @Override
@@ -9,10 +7,6 @@ public class Day4 implements Day {
         var input = support.readLines("day4.input");
         part1(input);
         part2(input);
-    }
-
-    static Collector<Character, StringBuilder, String> collectToString() {
-        return Collector.of(StringBuilder::new, StringBuilder::append, StringBuilder::append, StringBuilder::toString);
     }
 
     record Room(String name, int sectorId, String checksum) {
@@ -34,7 +28,7 @@ public class Day4 implements Day {
                     .sorted(Map.Entry.<Character, Integer>comparingByValue().reversed().thenComparing(Map.Entry::getKey))
                     .map(Map.Entry::getKey)
                     .filter(c -> c != '-')
-                    .collect(collectToString())
+                    .collect(Support.collectToString())
                     .substring(0, 5);
         }
 
@@ -50,7 +44,7 @@ public class Day4 implements Day {
         }
 
         String decryptName() {
-            return name.chars().mapToObj(this::shift).collect(collectToString());
+            return name.chars().mapToObj(this::shift).collect(Support.collectToString());
         }
     }
 
