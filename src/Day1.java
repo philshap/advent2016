@@ -45,7 +45,7 @@ public class Day1 implements Day {
             dir = dir.turn(s.substring(0, 1));
             pos = pos.move(dir, Integer.parseInt(s.substring(1)));
         }
-        System.out.printf("day 1 part 1: %s\n", Math.abs(pos.x) + Math.abs(pos.y));
+        System.out.printf("day 1 part 1: %s%n", Math.abs(pos.x) + Math.abs(pos.y));
     }
 
     private static void part2(String input) {
@@ -57,7 +57,7 @@ public class Day1 implements Day {
             for (int i = 0; i < Integer.parseInt(s.substring(1)); i++) {
                 pos = pos.move(dir, 1);
                 if (!seen.add(pos)) {
-                    System.out.printf("day 1 part 2: %s\n", Math.abs(pos.x) + Math.abs(pos.y));
+                    System.out.printf("day 1 part 2: %s%n", Math.abs(pos.x) + Math.abs(pos.y));
                     return;
                 }
             }

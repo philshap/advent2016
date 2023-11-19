@@ -4,10 +4,11 @@ public class Day2 implements Day {
     record Dir(int dx, int dy) {
     }
 
-    static Map<Character, Dir> DIRS = Map.of('U', new Dir(0, -1),
-            'R', new Dir(1, 0),
-            'D', new Dir(0, 1),
-            'L', new Dir(-1, 0));
+    static final Map<Character, Dir> DIRS =
+            Map.of('U', new Dir(0, -1),
+                    'R', new Dir(1, 0),
+                    'D', new Dir(0, 1),
+                    'L', new Dir(-1, 0));
 
     static final int[][] KEYPAD1 = {
             {1, 2, 3},
@@ -45,7 +46,7 @@ public class Day2 implements Day {
             }
             digits.append(pos.digit());
         }
-        System.out.printf("day 2 part 1: %s\n", digits);
+        System.out.printf("day 2 part 1: %s%n", digits);
     }
 
     static final char[][] KEYPAD2 = {
@@ -84,6 +85,6 @@ public class Day2 implements Day {
             }
             digits.append(pos.digit());
         }
-        System.out.printf("day 2 part 2: %s\n", digits);
+        System.out.printf("day 2 part 2: %s%n", digits);
     }
 }

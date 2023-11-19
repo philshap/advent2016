@@ -29,7 +29,7 @@ public class Day3 implements Day {
 
     private void part1(String[] lines) {
         var possible = Arrays.stream(lines).map(Triangle::new).filter(Triangle::isPossible).count();
-        System.out.printf("day 3 part 1: %s\n", possible);
+        System.out.printf("day 3 part 1: %s%n", possible);
     }
 
     // https://stackoverflow.com/a/32435407
@@ -55,6 +55,6 @@ public class Day3 implements Day {
                         List.of(t.get(0).sides.get(2), t.get(1).sides.get(2), t.get(2).sides.get(2))))
                 .map(Triangle::new)
                 .filter(Triangle::isPossible).count();
-        System.out.printf("day 3 part 2: %s\n", possible);
+        System.out.printf("day 3 part 2: %s%n", possible);
     }
 }
