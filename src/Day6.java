@@ -32,7 +32,6 @@ public class Day6 implements Day {
 
     private void part1(String[] lines) {
         var message = readMessage(lines, Map.Entry.<Character, Integer>comparingByValue().reversed());
-
         System.out.printf("day 6 part 1: %s%n", message);
     }
 

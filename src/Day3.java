@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Day3 implements Day {
@@ -32,24 +31,12 @@ public class Day3 implements Day {
         System.out.printf("day 3 part 1: %s%n", possible);
     }
 
-    // https://stackoverflow.com/a/32435407
-    public static <T> Stream<List<T>> ofSubLists(List<T> source, int length) {
-        if (length <= 0)
-            throw new IllegalArgumentException("length = " + length);
-        int size = source.size();
-        if (size == 0)
-            return Stream.empty();
-        int fullChunks = (size - 1) / length;
-        return IntStream.range(0, fullChunks + 1).mapToObj(
-                n -> source.subList(n * length, n == fullChunks ? size : (n + 1) * length));
-    }
-
     private void part2(String[] lines) {
         var triangles =
                 Arrays.stream(lines)
                         .map(Triangle::new)
                         .toList();
-        var possible = ofSubLists(triangles, 3)
+        var possible = Support.partition(triangles, 3)
                 .flatMap(t -> Stream.of(List.of(t.get(0).sides.get(0), t.get(1).sides.get(0), t.get(2).sides.get(0)),
                         List.of(t.get(0).sides.get(1), t.get(1).sides.get(1), t.get(2).sides.get(1)),
                         List.of(t.get(0).sides.get(2), t.get(1).sides.get(2), t.get(2).sides.get(2))))
@@ -58,3 +45,4 @@ public class Day3 implements Day {
         System.out.printf("day 3 part 2: %s%n", possible);
     }
 }
+
