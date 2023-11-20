@@ -9,16 +9,16 @@ public class Day6 implements Day {
     }
 
     private static String readMessage(List<String> lines, Comparator<Map.Entry<Character, Integer>> comparator) {
-        Map<Character, Integer>[] frequencies = new Map[lines.get(0).length()];
-        for (int i = 0; i < frequencies.length; i++) {
-            frequencies[i] = new HashMap<>();
+        List<Map<Character, Integer>> frequencies = new ArrayList<>();
+        for (int i = 0; i < lines.get(0).length(); i++) {
+            frequencies.add(new HashMap<>());
         }
         for (String line : lines) {
             for (int i = 0; i < line.length(); i++) {
-                frequencies[i].merge(line.charAt(i), 1, Integer::sum);
+                frequencies.get(i).merge(line.charAt(i), 1, Integer::sum);
             }
         }
-        return Arrays.stream(frequencies)
+        return frequencies.stream()
                 .map(freq -> freq.entrySet().stream()
                         .sorted(comparator)
                         .map(Map.Entry::getKey)
