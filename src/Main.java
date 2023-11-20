@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Main implements Support {
@@ -17,8 +19,8 @@ public class Main implements Support {
     }
 
     @Override
-    public String[] readLines(String name) throws IOException {
-        return readString(name).split("\n");
+    public List<String> readLines(String name) throws IOException {
+        return Arrays.asList(readString(name).split("\n"));
     }
 
     @Override
@@ -27,7 +29,7 @@ public class Main implements Support {
     }
 
     private void runDays() throws Exception {
-        Day[] days = {new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6(), new Day7()};
+        Day[] days = {new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6(), new Day7(), new Day8()};
         for (var day : days) {
             day.run(this);
         }

@@ -48,13 +48,13 @@ public class Day4 implements Day {
         }
     }
 
-    private void part1(String[] lines) {
-        var sectorSum = Arrays.stream(lines).map(Room::fromLine).filter(Room::isReal).mapToInt(Room::sectorId).sum();
+    private void part1(List<String> lines) {
+        var sectorSum = lines.stream().map(Room::fromLine).filter(Room::isReal).mapToInt(Room::sectorId).sum();
         System.out.printf("day 4 part 1: %s%n", sectorSum);
     }
 
-    private void part2(String[] lines) {
-        var poleObjects = Arrays.stream(lines).map(Room::fromLine)
+    private void part2(List<String> lines) {
+        var poleObjects = lines.stream().map(Room::fromLine)
                 .filter(Room::isReal)
                 .filter(room -> room.decryptName().equals("northpole-object-storage"))
                 .findFirst();

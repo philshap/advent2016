@@ -26,14 +26,14 @@ public class Day3 implements Day {
         }
     }
 
-    private void part1(String[] lines) {
-        var possible = Arrays.stream(lines).map(Triangle::new).filter(Triangle::isPossible).count();
+    private void part1(List<String> lines) {
+        var possible = lines.stream().map(Triangle::new).filter(Triangle::isPossible).count();
         System.out.printf("day 3 part 1: %s%n", possible);
     }
 
-    private void part2(String[] lines) {
+    private void part2(List<String> lines) {
         var triangles =
-                Arrays.stream(lines)
+                lines.stream()
                         .map(Triangle::new)
                         .toList();
         var possible = Support.partition(triangles, 3)

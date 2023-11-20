@@ -33,8 +33,8 @@ public class Day7 implements Day {
         return abbaIp;
     }
 
-    private void part1(String[] lines) {
-        var count = Arrays.stream(lines).filter(this::supportsTls).count();
+    private void part1(List<String> lines) {
+        var count = lines.stream().filter(this::supportsTls).count();
         System.out.printf("day 7 part 2: %s%n", count);
 
     }
@@ -75,8 +75,8 @@ public class Day7 implements Day {
         return false;
     }
 
-    private void part2(String[] lines) {
-        var count = Arrays.stream(lines).filter(this::supportsSsl).count();
+    private void part2(List<String> lines) {
+        var count = lines.stream().filter(this::supportsSsl).count();
         System.out.printf("day 7 part 2: %s%n", count);
     }
 }

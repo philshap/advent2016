@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Day6 implements Day {
     @Override
@@ -11,8 +8,8 @@ public class Day6 implements Day {
         part2(lines);
     }
 
-    private static String readMessage(String[] lines, Comparator<Map.Entry<Character, Integer>> comparator) {
-        Map<Character, Integer>[] frequencies = new Map[lines[0].length()];
+    private static String readMessage(List<String> lines, Comparator<Map.Entry<Character, Integer>> comparator) {
+        Map<Character, Integer>[] frequencies = new Map[lines.get(0).length()];
         for (int i = 0; i < frequencies.length; i++) {
             frequencies[i] = new HashMap<>();
         }
@@ -30,12 +27,12 @@ public class Day6 implements Day {
                 .collect(Support.collectToString());
     }
 
-    private void part1(String[] lines) {
+    private void part1(List<String> lines) {
         var message = readMessage(lines, Map.Entry.<Character, Integer>comparingByValue().reversed());
         System.out.printf("day 6 part 1: %s%n", message);
     }
 
-    private void part2(String[] lines) {
+    private void part2(List<String> lines) {
         var message = readMessage(lines, Map.Entry.comparingByValue());
         System.out.printf("day 6 part 2: %s%n", message);
     }

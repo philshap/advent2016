@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 
 public class Day2 implements Day {
@@ -37,7 +38,7 @@ public class Day2 implements Day {
         part2(input);
     }
 
-    private static void part1(String[] lines) {
+    private static void part1(List<String> lines) {
         StringBuilder digits = new StringBuilder();
         Pos1 pos = new Pos1(1, 1);
         for (String line : lines) {
@@ -76,7 +77,7 @@ public class Day2 implements Day {
         }
     }
 
-    private static void part2(String[] lines) {
+    private static void part2(List<String> lines) {
         StringBuilder digits = new StringBuilder();
         Pos2 pos = new Pos2(0, 2);
         for (String line : lines) {

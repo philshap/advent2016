@@ -22,7 +22,7 @@ public interface Support {
     }
 
     String readString(String name) throws IOException;
-    String[] readLines(String name) throws IOException;
+    List<String> readLines(String name) throws IOException;
 
     boolean includeSlow();
 }
