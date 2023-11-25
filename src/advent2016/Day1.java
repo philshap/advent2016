@@ -1,3 +1,5 @@
+package advent2016;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +35,7 @@ public class Day1 implements Day {
     }
 
     public void run(Support support) throws Exception {
-        var input = support.readString("day1.input");
+        var input = support.readString(1);
         part1(input);
         part2(input);
     }

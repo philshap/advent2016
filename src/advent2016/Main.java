@@ -1,4 +1,8 @@
+package advent2016;
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -12,15 +16,13 @@ public class Main implements Support {
     }
 
     @Override
-    public String readString(String name) throws IOException {
-        try (var stream = Objects.requireNonNull(getClass().getResourceAsStream(name))) {
-            return new String(stream.readAllBytes());
-        }
+    public String readString(int day) throws IOException {
+        return Files.readString(Paths.get("src/advent2016/day%s.input".formatted(day)));
     }
 
     @Override
-    public List<String> readLines(String name) throws IOException {
-        return Arrays.asList(readString(name).split("\n"));
+    public List<String> readLines(int day) throws IOException {
+        return Arrays.asList(readString(day).split("\n"));
     }
 
     @Override

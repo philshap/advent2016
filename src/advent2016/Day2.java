@@ -1,3 +1,5 @@
+package advent2016;
+
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class Day2 implements Day {
     }
 
     public void run(Support support) throws Exception {
-        var input = support.readLines("day2.input");
+        var input = support.readLines(2);
         part1(input);
         part2(input);
     }

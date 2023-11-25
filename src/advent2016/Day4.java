@@ -1,10 +1,12 @@
+package advent2016;
+
 import java.util.*;
 import java.util.regex.Pattern;
 
 public class Day4 implements Day {
     @Override
     public void run(Support support) throws Exception {
-        var input = support.readLines("day4.input");
+        var input = support.readLines(4);
         part1(input);
         part2(input);
     }

@@ -1,3 +1,5 @@
+package advent2016;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -6,7 +8,7 @@ public class Day12 implements Day {
 
     @Override
     public void run(Support support) throws Exception {
-        var input = support.readLines("day12.input");
+        var input = support.readLines(12);
         part1(input);
         part2(input);
     }

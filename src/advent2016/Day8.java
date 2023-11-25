@@ -1,3 +1,5 @@
+package advent2016;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -5,7 +7,7 @@ import java.util.Set;
 public class Day8 implements Day {
     @Override
     public void run(Support support) throws Exception {
-        var input = support.readLines("day8.input");
+        var input = support.readLines(8);
         part1(input);
         part2(input);
     }

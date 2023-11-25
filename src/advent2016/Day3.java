@@ -1,3 +1,5 @@
+package advent2016;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -6,7 +8,7 @@ import java.util.stream.Stream;
 public class Day3 implements Day {
     @Override
     public void run(Support support) throws Exception {
-        var lines = support.readLines("day3.input");
+        var lines = support.readLines(3);
         part1(lines);
         part2(lines);
     }

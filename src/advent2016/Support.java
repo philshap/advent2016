@@ -1,3 +1,5 @@
+package advent2016;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collector;
@@ -21,8 +23,8 @@ public interface Support {
                 n -> source.subList(n * length, n == fullChunks ? size : (n + 1) * length));
     }
 
-    String readString(String name) throws IOException;
-    List<String> readLines(String name) throws IOException;
+    String readString(int day) throws IOException;
+    List<String> readLines(int day) throws IOException;
 
     boolean includeSlow();
 }

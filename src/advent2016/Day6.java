@@ -1,9 +1,11 @@
+package advent2016;
+
 import java.util.*;
 
 public class Day6 implements Day {
     @Override
     public void run(Support support) throws Exception {
-        var lines = support.readLines("day6.input");
+        var lines = support.readLines(6);
         part1(lines);
         part2(lines);
     }
