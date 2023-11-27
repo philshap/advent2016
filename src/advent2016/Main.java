@@ -1,6 +1,8 @@
 package advent2016;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -10,17 +12,19 @@ public class Main implements Support {
 
     private final boolean includeSlow;
 
+    private final String INPUT_URL = "https://adventofcode.com/2016/day/%d/input";
+
     public Main(String[] args) {
         includeSlow = (args.length == 1 && args[0].equals("includeSlow"));
     }
 
     @Override
-    public String readString(int day) throws IOException {
-        return Files.readString(Paths.get("src/advent2016/day%s.input".formatted(day)));
+    public String readString(int day) throws Exception {
+        return CachingHttpReader.getData(new URI(INPUT_URL.formatted(day)).toURL()).trim();
     }
 
     @Override
-    public List<String> readLines(int day) throws IOException {
+    public List<String> readLines(int day) throws Exception {
         return Arrays.asList(readString(day).split("\n"));
     }
 

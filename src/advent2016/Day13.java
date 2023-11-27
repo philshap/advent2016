@@ -9,14 +9,14 @@ import java.util.PriorityQueue;
 import java.util.function.Function;
 
 public class Day13 implements Day {
-    static final int INPUT = 1352;
-
     static final int WALL = -1;
     static final int EMPTY = -2;
 
+    static int input;
+
     record Pos(int x, int y) {
         int isWall() {
-            int val = x * x + 3 * x + 2 * x * y + y + y * y + INPUT;
+            int val = x * x + 3 * x + 2 * x * y + y + y * y + input;
             String bin = Integer.toBinaryString(val);
             int count = 0;
             for (char c : bin.toCharArray()) {
@@ -42,6 +42,7 @@ public class Day13 implements Day {
 
     @Override
     public void run(Support support) throws Exception {
+        input = Integer.parseInt(support.readString(13));
         part1();
         part2();
     }

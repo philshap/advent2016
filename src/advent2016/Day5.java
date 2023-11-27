@@ -23,7 +23,7 @@ public class Day5 implements Day {
 
     @Override
     public void run(Support support) throws Exception {
-        var input = "reyedfim";
+        var input = support.readString(5);
         if (support.includeSlow()) {
             part1(input);
             part2(input);

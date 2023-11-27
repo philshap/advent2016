@@ -1,6 +1,7 @@
 package advent2016;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
@@ -23,8 +24,8 @@ public interface Support {
                 n -> source.subList(n * length, n == fullChunks ? size : (n + 1) * length));
     }
 
-    String readString(int day) throws IOException;
-    List<String> readLines(int day) throws IOException;
+    String readString(int day) throws Exception;
+    List<String> readLines(int day) throws Exception;
 
     boolean includeSlow();
 }
