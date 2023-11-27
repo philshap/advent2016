@@ -1,6 +1,5 @@
 package advent2016;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +8,7 @@ public class Main implements Support {
 
     private final boolean includeSlow;
 
-    private final String INPUT_URL = "https://adventofcode.com/2016/day/%d/input";
+    private static final String INPUT_URL = "https://adventofcode.com/2016/day/%d/input";
 
     public Main(String[] args) {
         includeSlow = (args.length == 1 && args[0].equals("includeSlow"));
