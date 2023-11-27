@@ -1,7 +1,5 @@
 package advent2016;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
