@@ -44,10 +44,10 @@ public class Day14 implements Day {
         return computeHash((prefix + count).getBytes());
     }
 
-    private byte findTriple(byte[] chars) {
+    private byte findTriple(byte[] hash) {
         for (int i = 0; i < 32 - 2; i++) {
-            if (chars[i] == chars[i + 1] && chars[i] == chars[i + 2]) {
-                return chars[i];
+            if (hash[i] == hash[i + 1] && hash[i] == hash[i + 2]) {
+                return hash[i];
             }
         }
         return -1;
