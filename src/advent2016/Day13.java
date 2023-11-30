@@ -1,11 +1,6 @@
 package advent2016;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.function.Function;
 
 public class Day13 implements Day {
@@ -47,8 +42,7 @@ public class Day13 implements Day {
         part2();
     }
 
-    record Walk(Pos pos, int distance) {
-    }
+    record Walk(Pos pos, int distance) {}
 
     private Map<Pos, Integer> navigateUntil(Function<Walk, Boolean> done) {
         Map<Pos, Integer> floor = new HashMap<>();

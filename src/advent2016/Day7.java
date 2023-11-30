@@ -1,6 +1,8 @@
 package advent2016;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Day7 implements Day {
     @Override

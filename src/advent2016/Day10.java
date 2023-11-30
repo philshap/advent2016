@@ -61,8 +61,7 @@ public class Day10 implements Day {
             }
         }
 
-        record LowHigh(int low, int high) {
-        }
+        record LowHigh(int low, int high) {}
 
         LowHigh handOff(Map<Integer, Bot> bots, Map<Integer, Integer> output) {
             if (low != null && high != null) {

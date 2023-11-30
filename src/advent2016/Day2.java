@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Day2 implements Day {
-    record Dir(int dx, int dy) {
-    }
+    record Dir(int dx, int dy) {}
 
     static final Map<Character, Dir> DIRS =
             Map.of('U', new Dir(0, -1),

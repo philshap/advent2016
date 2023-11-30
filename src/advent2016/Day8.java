@@ -15,7 +15,7 @@ public class Day8 implements Day {
     static final int WIDTH = 50;
     static final int HEIGHT = 6;
 
-    record Pixel(int x, int y) { }
+    record Pixel(int x, int y) {}
 
     private void drawRect(Set<Pixel> pixels, String line) {
         String[] wh = line.substring("rect ".length()).split("x");

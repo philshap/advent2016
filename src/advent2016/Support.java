@@ -12,17 +12,20 @@ public interface Support {
 
     // https://stackoverflow.com/a/32435407
     static <T> Stream<List<T>> partition(List<T> source, int length) {
-        if (length <= 0)
+        if (length <= 0) {
             throw new IllegalArgumentException("length = " + length);
+        }
         int size = source.size();
-        if (size == 0)
+        if (size == 0) {
             return Stream.empty();
+        }
         int fullChunks = (size - 1) / length;
         return IntStream.range(0, fullChunks + 1).mapToObj(
                 n -> source.subList(n * length, n == fullChunks ? size : (n + 1) * length));
     }
 
     String readString(int day) throws Exception;
+
     List<String> readLines(int day) throws Exception;
 
     boolean includeSlow();

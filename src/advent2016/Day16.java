@@ -1,7 +1,6 @@
 package advent2016;
 
 import java.util.Arrays;
-import java.util.function.Function;
 
 public class Day16 implements Day {
 

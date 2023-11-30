@@ -1,6 +1,8 @@
 package advent2016;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Day4 implements Day {
@@ -13,6 +15,7 @@ public class Day4 implements Day {
 
     record Room(String name, int sectorId, String checksum) {
         static final Pattern PATTERN = Pattern.compile("([a-z-]+)-(\\d+)\\[([a-z]{5})]");
+
         static Room fromLine(String line) {
             var match = PATTERN.matcher(line);
             if (!match.matches()) {
