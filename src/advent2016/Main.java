@@ -4,9 +4,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -30,10 +30,15 @@ public class Main {
   }
 
   private void runDays() {
-    Stream.of(new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6(), new Day7(),
-            new Day8(), new Day9(), new Day10(), new Day12(), new Day13(),
-            new Day14(), new Day16())
-        .sorted(Comparator.comparing(Day::number))
+    IntStream.range(1, 25)
+        .mapToObj("advent2016.Day%s"::formatted)
+        .map(name -> {
+          try {
+            return (Day) Class.forName(name).getDeclaredConstructors()[0].newInstance();
+          } catch (Exception e) {
+            return null;
+          }
+        }).filter(Objects::nonNull)
         .forEach(this::runDay);
   }
 
