@@ -1,45 +1,43 @@
 package advent2016;
 
-import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-public class Main implements Support {
+public class Main {
 
-    private final boolean includeSlow;
+  record PartRun(String result, String duration) {
+    static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("s.SSSSS");
 
-    private static final String INPUT_URL = "https://adventofcode.com/2016/day/%d/input";
-
-    public Main(String[] args) {
-        includeSlow = (args.length == 1 && args[0].equals("includeSlow"));
+    static PartRun run(Supplier<String> part) {
+      Instant start = Instant.now();
+      String result = part.get();
+      Duration between = Duration.between(start, Instant.now());
+      // https://stackoverflow.com/a/65586659
+      return new PartRun(result, LocalTime.ofNanoOfDay(between.toNanos()).format(FORMAT));
     }
+  }
 
-    @Override
-    public String readString(int day) throws Exception {
-        return CachingHttpReader.getData(new URI(INPUT_URL.formatted(day)).toURL()).trim();
-    }
+  private void runDay(Day day) {
+    PartRun part1 = PartRun.run(day::part1);
+    System.out.printf("day %s part 1: (%s) %s%n", day.number(), part1.duration, part1.result);
+    PartRun part2 = PartRun.run(day::part2);
+    System.out.printf("day %s part 2: (%s) %s%n", day.number(), part2.duration, part2.result);
+  }
 
-    @Override
-    public List<String> readLines(int day) throws Exception {
-        return Arrays.asList(readString(day).split("\n"));
-    }
+  private void runDays() {
+    Stream.of(new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6(), new Day7(),
+            new Day8(), new Day9(), new Day10(), new Day12(), new Day13(),
+            new Day14(), new Day16())
+        .sorted(Comparator.comparing(Day::number))
+        .forEach(this::runDay);
+  }
 
-    @Override
-    public boolean includeSlow() {
-        return includeSlow;
-    }
-
-    private void runDays() throws Exception {
-        Day[] days = {
-                new Day1(), new Day2(), new Day3(), new Day4(), new Day5(), new Day6(),
-                new Day7(), new Day8(), new Day9(), new Day10(), new Day12(),
-                new Day13(), new Day14(), new Day16()};
-        for (var day : days) {
-            day.run(this);
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        new Main(args).runDays();
-    }
+  public static void main(String[] args) {
+    new Main().runDays();
+  }
 }

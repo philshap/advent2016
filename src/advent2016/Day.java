@@ -1,5 +1,34 @@
 package advent2016;
 
-public interface Day {
-    void run(Support support) throws Exception;
+import java.net.URI;
+import java.util.List;
+
+public abstract class Day {
+    abstract String part1();
+
+    abstract String part2();
+
+    final int number;
+    final List<String> input;
+    final String data;
+
+    public int number() {
+        return number;
+    }
+
+    protected Day(int number) {
+        this.number = number;
+        this.data = getData().trim();
+        this.input = Support.splitInput(data);
+    }
+
+    private static final String INPUT_URL = "https://adventofcode.com/2016/day/%d/input";
+
+    String getData() {
+        try {
+            return CachingHttpReader.getData(new URI(INPUT_URL.formatted(number)).toURL());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

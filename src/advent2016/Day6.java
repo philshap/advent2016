@@ -1,41 +1,41 @@
 package advent2016;
 
-import java.util.*;
 
-public class Day6 implements Day {
-    @Override
-    public void run(Support support) throws Exception {
-        var lines = support.readLines(6);
-        part1(lines);
-        part2(lines);
-    }
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    private static String readMessage(List<String> lines, Comparator<Map.Entry<Character, Integer>> comparator) {
-        List<Map<Character, Integer>> frequencies = new ArrayList<>();
-        for (int i = 0; i < lines.get(0).length(); i++) {
-            frequencies.add(new HashMap<>());
-        }
-        for (String line : lines) {
-            for (int i = 0; i < line.length(); i++) {
-                frequencies.get(i).merge(line.charAt(i), 1, Integer::sum);
-            }
-        }
-        return frequencies.stream()
-                .map(freq -> freq.entrySet().stream()
-                        .sorted(comparator)
-                        .map(Map.Entry::getKey)
-                        .findFirst()
-                        .orElseThrow())
-                .collect(Support.collectToString());
-    }
+public class Day6 extends Day {
+  protected Day6() {
+    super(6);
+  }
 
-    private void part1(List<String> lines) {
-        var message = readMessage(lines, Map.Entry.<Character, Integer>comparingByValue().reversed());
-        System.out.printf("day 6 part 1: %s%n", message);
+  private static String readMessage(List<String> lines, Comparator<Map.Entry<Character, Integer>> comparator) {
+    List<Map<Character, Integer>> frequencies = new ArrayList<>();
+    for (int i = 0; i < lines.getFirst().length(); i++) {
+      frequencies.add(new HashMap<>());
     }
+    for (String line : lines) {
+      for (int i = 0; i < line.length(); i++) {
+        frequencies.get(i).merge(line.charAt(i), 1, Integer::sum);
+      }
+    }
+    return frequencies.stream()
+        .map(freq -> freq.entrySet().stream()
+            .sorted(comparator)
+            .map(Map.Entry::getKey)
+            .findFirst()
+            .orElseThrow())
+        .collect(Support.collectToString());
+  }
 
-    private void part2(List<String> lines) {
-        var message = readMessage(lines, Map.Entry.comparingByValue());
-        System.out.printf("day 6 part 2: %s%n", message);
-    }
+  String part1() {
+    return readMessage(input, Map.Entry.<Character, Integer>comparingByValue().reversed());
+  }
+
+  String part2() {
+    return readMessage(input, Map.Entry.comparingByValue());
+  }
 }

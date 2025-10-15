@@ -4,13 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Day8 implements Day {
-    @Override
-    public void run(Support support) throws Exception {
-        var input = support.readLines(8);
-        part1(input);
-        part2(input);
-    }
+public class Day8 extends Day {
+  protected Day8() {
+    super(8);
+  }
 
     static final int WIDTH = 50;
     static final int HEIGHT = 6;
@@ -78,9 +75,9 @@ public class Day8 implements Day {
         return pixels;
     }
 
-    private void part1(List<String> lines) {
-        Set<Pixel> pixels = drawPixels(lines);
-        System.out.printf("day 8 part 1: %s%n", pixels.size());
+    String part1() {
+        Set<Pixel> pixels = drawPixels(input);
+        return String.valueOf(pixels.size());
     }
 
     private void display(Set<Pixel> pixels) {
@@ -96,7 +93,8 @@ public class Day8 implements Day {
         }
     }
 
-    private void part2(List<String> lines) {
-        display(drawPixels(lines));
+    String part2() {
+        display(drawPixels(input));
+        return "";
     }
 }
