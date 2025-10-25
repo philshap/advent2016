@@ -7,50 +7,51 @@ public class Day16 extends Day {
     super(16);
   }
 
+  static final byte ZERO = '0';
+  static final byte ONE = '1';
+
   static class Data {
     final int length;
-    final int[] data;
-    int size;
+    final byte[] data;
+    final int initialLength;
 
     Data(String initial, int length) {
       this.length = length;
-      data = new int[length * 2 + 1];
-      int i = 0;
-      for (byte b : initial.getBytes()) {
-        data[i++] = b;
-      }
-      size = initial.length();
+      data = new byte[length * 2 + 1];
+      System.arraycopy(initial.getBytes(), 0, data, 0, initial.length());
+      initialLength = initial.length();
     }
 
-    void expand() {
+    int expand(int size) {
       int newSize = size * 2 + 1;
       for (int i = 0; i < size; i++) {
-        data[newSize - i - 1] = data[i] == '0' ? '1' : '0';
+        data[newSize - i - 1] = data[i] == ZERO ? ONE : ZERO;
       }
       data[size] = '0';
-      size = newSize;
+      return newSize;
     }
 
-    void checksum() {
-      int[] checksum = new int[size];
+    int checksum(int size) {
+      byte[] checksum = new byte[size];
       int j = 0;
       for (int i = 0; i < size - 1; i += 2) {
-        checksum[j++] = data[i] == data[i + 1] ? '1' : '0';
+        checksum[j++] = data[i] == data[i + 1] ? ONE : ZERO;
       }
-      size = j;
       System.arraycopy(checksum, 0, data, 0, j);
+      return j;
     }
 
     String computeChecksum() {
+      int size = initialLength;
       while (size < length) {
-        expand();
+        size = expand(size);
       }
       size = length;
       do {
-        checksum();
+        size = checksum(size);
       } while (size % 2 == 0);
 
-      return Arrays.stream(data).limit(size).mapToObj(i -> (char) i).collect(Support.collectToString());
+      return new String(data, 0, size);
     }
   }
 
