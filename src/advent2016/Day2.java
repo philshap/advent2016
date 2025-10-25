@@ -86,4 +86,18 @@ public class Day2 extends Day {
     }
     return digits.toString();
   }
+
+  public static void main(String[] args) {
+    var day = new Day2() {
+      @Override
+      String getData() {
+        return """
+            ULL
+            RRDDD
+            LURDL
+            UUUUD""";
+      }
+    };
+    day.run("1985", "5DB3");
+  }
 }

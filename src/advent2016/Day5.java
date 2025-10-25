@@ -62,4 +62,14 @@ public class Day5 extends Day {
         }).dropWhile(s -> s.contains("."))
         .findFirst().orElseThrow();
   }
+
+  public static void main(String[] args) {
+    var day = new Day5() {
+      @Override
+      String getData() {
+        return "abc";
+      }
+    };
+    day.run("18f47a30", "05ace8e3");
+  }
 }

@@ -52,4 +52,14 @@ public class Day9 extends Day {
   String part2() {
     return String.valueOf(decompressCount(data));
   }
+
+  public static void main(String[] args) {
+    var day = new Day9() {
+      @Override
+      String getData() {
+        return "X(8x2)(3x3)ABCY";
+      }
+    };
+    day.run("17", "19");
+  }
 }

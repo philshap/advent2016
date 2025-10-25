@@ -113,4 +113,14 @@ public class Day14 extends Day {
     int index = getLastKeyIndex(data, this::computeHash2);
     return String.valueOf(index);
   }
+
+  public static void main(String[] args) {
+    var day = new Day14() {
+      @Override
+      String getData() {
+        return "abc";
+      }
+    };
+    day.run("22728", "22551");
+  }
 }

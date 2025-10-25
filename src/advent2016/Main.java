@@ -1,33 +1,9 @@
 package advent2016;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 public class Main {
-
-  record PartRun(String result, String duration) {
-    static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("s.SSSSS");
-
-    static PartRun run(Supplier<String> part) {
-      Instant start = Instant.now();
-      String result = part.get();
-      Duration between = Duration.between(start, Instant.now());
-      // https://stackoverflow.com/a/65586659
-      return new PartRun(result, LocalTime.ofNanoOfDay(between.toNanos()).format(FORMAT));
-    }
-  }
-
-  private void runDay(Day day) {
-    PartRun part1 = PartRun.run(day::part1);
-    System.out.printf("day %s part 1: (%s) %s%n", day.number(), part1.duration, part1.result);
-    PartRun part2 = PartRun.run(day::part2);
-    System.out.printf("day %s part 2: (%s) %s%n", day.number(), part2.duration, part2.result);
-  }
 
   private void runDays() {
     IntStream.range(1, 25)
@@ -38,11 +14,28 @@ public class Main {
           } catch (Exception e) {
             return null;
           }
-        }).filter(Objects::nonNull)
-        .forEach(this::runDay);
+        })
+        .filter(Objects::nonNull)
+        .forEach(Day::run);
+  }
+
+  private void testDays() {
+    IntStream.range(1, 25)
+        .mapToObj("advent2016.Day%s"::formatted)
+        .forEach(name -> {
+          try {
+            Class.forName(name).getMethod("main", String[].class).invoke(null, (Object) null);
+          } catch (Exception e) {
+            // ignore errors
+          }
+        });
   }
 
   public static void main(String[] args) {
-    new Main().runDays();
+    if (args.length == 1 && args[0].equals("test")) {
+      new Main().testDays();
+    } else {
+      new Main().runDays();
+    }
   }
 }

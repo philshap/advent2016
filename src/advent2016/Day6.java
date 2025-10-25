@@ -1,6 +1,5 @@
 package advent2016;
 
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -37,5 +36,31 @@ public class Day6 extends Day {
 
   String part2() {
     return readMessage(input, Map.Entry.comparingByValue());
+  }
+
+  public static void main(String[] args) {
+    var day = new Day6() {
+      @Override
+      String getData() {
+        return """
+            eedadn
+            drvtee
+            eandsr
+            raavrd
+            atevrs
+            tsrnev
+            sdttsa
+            rasrtv
+            nssdts
+            ntnada
+            svetve
+            tesnvt
+            vntsnd
+            vrdear
+            dvrsen
+            enarar""";
+      }
+    };
+    day.run("easter", "advent");
   }
 }
