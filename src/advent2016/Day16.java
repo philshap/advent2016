@@ -1,7 +1,5 @@
 package advent2016;
 
-import java.util.Arrays;
-
 public class Day16 extends Day {
   protected Day16() {
     super(16);
