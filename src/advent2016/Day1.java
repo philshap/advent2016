@@ -62,4 +62,14 @@ public class Day1 extends Day {
     }
     return "no solution found";
   }
+
+  public static void main(String[] args) {
+    Day day = new Day1() {
+      @Override
+      String getData() {
+        return "R8, R4, R4, R8";
+      }
+    };
+    day.run("8", "4");
+  }
 }
