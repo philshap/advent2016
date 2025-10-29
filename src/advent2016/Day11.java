@@ -146,8 +146,6 @@ public class Day11 extends Day {
     }
   }
 
-  static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("mm:ss.SSSSS");
-
   static int minSteps(Facility facility) {
     Set<Facility> seen = new HashSet<>();
     int steps = 0;
