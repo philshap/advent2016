@@ -1,6 +1,5 @@
 package advent2016;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -29,8 +28,8 @@ public class Day11 extends Day {
     }
   }
 
-  static <T> Set<T> replace(Set<T> s, T remove, T add) {
-    Set<T> newS = new HashSet<>(s);
+  static <T> List<T> replace(List<T> s, T remove, T add) {
+    List<T> newS = new ArrayList<>(s);
     newS.remove(remove);
     newS.add(add);
     return newS;
@@ -38,9 +37,9 @@ public class Day11 extends Day {
 
   static final int FLOORS = 4;
 
-  record Facility(int elevator, Set<Device> devices) {
+  record Facility(int elevator, List<Device> devices) {
     static Facility fromLines(List<String> lines) {
-      Facility f = new Facility(0, new HashSet<>());
+      Facility f = new Facility(0, new ArrayList<>());
       for (int i = 0; i < lines.size(); i++) {
         String line = lines.get(i);
         int floor = i;
@@ -115,9 +114,6 @@ public class Day11 extends Day {
       for (int dy : UP_DOWN) {
         int newFloor = elevator + dy;
         if (newFloor < 0 || newFloor == FLOORS) {
-          continue;
-        }
-        if (dy == -1 && devices.stream().noneMatch(device -> device.floor <= newFloor)) {
           continue;
         }
         // Create new facilities by moving devices from the elevator floor to the new floor.
