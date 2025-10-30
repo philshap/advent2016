@@ -99,7 +99,7 @@ public class Day11 extends Day {
 
     @Override
     public int hashCode() {
-      return Objects.hash(collectByDevice());
+      return Objects.hash(elevator, collectByDevice());
     }
 
     Facility moveDevice(Device device, int newFloor) {
