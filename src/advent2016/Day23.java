@@ -1,65 +1,101 @@
 package advent2016;
 
+import java.io.Console;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.LongStream;
 
 public class Day23 extends Day {
   Day23() {
     super(23);
   }
-  record Computer(Map<String, Integer> registers, List<String[]> instructions) {
+
+  record Computer(Map<String, Long> registers, List<String[]> instructions) {
 
     static Computer fromInput(List<String> instructions) {
       Computer computer = new Computer(new HashMap<>(), instructions.stream().map(s -> s.split(" ")).toList());
       for (var register : List.of("a", "b", "c", "d")) {
-        computer.registers.put(register, 0);
+        computer.registers.put(register, 0L);
       }
       return computer;
     }
 
-    private int getValue(String arg) {
+    private long getValue(String arg) {
       if (Character.isAlphabetic(arg.charAt(0))) {
         return registers.get(arg);
       }
       return Integer.parseInt(arg);
     }
 
-    void runToEnd() {
-      int pc = 0;
+    static class Debug {
+      final Set<Integer> breakpoints = new HashSet<>();
+      boolean stepping = true;
+
+      void tick(Computer c, int pc) {
+        Console console = System.console();
+        if (console == null || !stepping || !breakpoints.contains(pc)) {
+          // no TTY attached
+          return;
+        }
+        while (true) {
+          System.out.printf("%s %2s %-12s%-25s > ", breakpoints.contains(pc) ? '*' : ' ', pc,
+              String.join(" ", c.instructions.get(pc)), c.registers);
+          String[] command = console.readLine().split(" ");
+          switch (command[0]) {
+            case "b":
+              int bpc = command.length == 2 ? Integer.parseInt(command[1]) : pc;
+              if (breakpoints.contains(bpc)) {
+                breakpoints.remove(bpc);
+              } else {
+                breakpoints.add(bpc);
+              }
+              break;
+            case "s", "":
+              stepping = true;
+              return;
+            case "g":
+              stepping = false;
+              return;
+          }
+        }
+      }
+    }
+
+    void runToEnd(int pc) {
+      Debug debug = new Debug();
       while (pc != instructions.size()) {
+        debug.tick(this, pc);
         String[] code = instructions.get(pc);
         switch (code[0]) {
           case "cpy":
             if (registers.containsKey(code[2])) {
               registers.put(code[2], getValue(code[1]));
             }
-            pc++;
             break;
           case "inc":
             if (registers.containsKey(code[1])) {
-              registers.merge(code[1], 1, Integer::sum);
+              registers.merge(code[1], 1L, Long::sum);
             }
-            pc++;
             break;
           case "dec":
             if (registers.containsKey(code[1])) {
-              registers.merge(code[1], -1, Integer::sum);
+              registers.merge(code[1], -1L, Long::sum);
             }
-            pc++;
             break;
           case "jnz":
             if (getValue(code[1]) != 0) {
-              pc += getValue(code[2]);
-            } else {
-              pc++;
+              pc += (int) getValue(code[2]);
+              continue;
             }
             break;
           case "tgl":
             toggle(pc + getValue(code[1]));
-            pc++;
             break;
         }
+        pc++;
       }
     }
 
@@ -71,32 +107,48 @@ public class Day23 extends Day {
     // - For two-argument instructions, jnz becomes cpy, and all
     //   other two-instructions become jnz.
     // - If an attempt is made to toggle an instruction outside the program, nothing happens.
-    void toggle(int target) {
+    void toggle(long target) {
       if (target < 0 || target >= instructions.size()) {
         return;
       }
       String newOp =
-          switch (instructions.get(target)[0]) {
+          switch (instructions.get((int) target)[0]) {
             case "inc" -> "dec";
             case "dec", "tgl" -> "inc";
             case "jnz" -> "cpy";
             default -> "jnz";
           };
-      instructions.get(target)[0] = newOp;
+      instructions.get((int) target)[0] = newOp;
     }
   }
 
   @Override
   String part1() {
     Computer computer = Computer.fromInput(input);
-    computer.registers.put("a", 7);
-    computer.runToEnd();
+    computer.registers.put("a", 7L);
+    computer.runToEnd(0);
     return String.valueOf(computer.registers.get("a"));
+  }
+
+  long factorial(long n) {
+    return LongStream.range(1, n + 1).reduce(1, (l1, l2) -> l1 * l2);
   }
 
   @Override
   String part2() {
-    return "???";
+    Computer computer = Computer.fromInput(input);
+    if (computer.instructions.size() > 7) {
+      // Using debugger, found that instruction 0-18 compute factorial of "a".
+      computer.registers.put("a", factorial(12L));
+      // These instructions get toggled.
+      computer.toggle(20);
+      computer.toggle(22);
+      computer.toggle(24);
+      computer.runToEnd(19);
+    } else {
+      computer.runToEnd(0);
+    }
+    return String.valueOf(computer.registers.get("a"));
   }
 
   public static void main(String[] args) {
@@ -113,6 +165,6 @@ public class Day23 extends Day {
             dec a""";
       }
     };
-    day.run("3", null);
+    day.run("3", "3");
   }
 }
