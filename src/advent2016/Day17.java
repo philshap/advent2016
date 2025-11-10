@@ -12,9 +12,6 @@ package advent2016;
 // ####### V
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,6 +19,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Day17 extends Day {
+  Day17() {
+    super(17);
+  }
 
   static int MIN = 0;
   static int MAX = 4;
@@ -42,23 +42,6 @@ public class Day17 extends Day {
   static final Pos START = new Pos(0, 0);
   static final Pos END = new Pos(3, 3);
 
-  private final MessageDigest md5;
-
-  protected Day17() {
-    super(17);
-    try {
-      md5 = MessageDigest.getInstance("MD5");
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  String computeHash(String message) {
-    md5.reset();
-    md5.update(StandardCharsets.UTF_8.encode(message));
-    return String.format("%032x", new BigInteger(1, md5.digest()));
-  }
-
   // The doors in your current room are either open or closed (and locked)
   // based on the hexadecimal MD5 hash of a passcode (your puzzle input)
   // followed by a sequence of uppercase characters representing the path
@@ -73,9 +56,9 @@ public class Day17 extends Day {
   static final Pos[] DIRS = {Pos.U, Pos.D, Pos.L, Pos.R};
   static final String OPEN = "bcdef";
   Stream<Pos> moves(String room) {
-    var hash = computeHash(room);
+    var hash = Support.hashToChars(Support.computeHash(room));
     return IntStream.range(0, DIRS.length)
-        .filter(i -> OPEN.indexOf(hash.charAt(i)) != -1)
+        .filter(i -> OPEN.indexOf(hash[i]) != -1)
         .mapToObj(i -> DIRS[i]);
   }
 

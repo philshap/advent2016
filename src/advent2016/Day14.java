@@ -1,42 +1,16 @@
 package advent2016;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
 public class Day14 extends Day {
-  private final MessageDigest md5;
-
   public Day14() {
     super(14);
-    try {
-      md5 = MessageDigest.getInstance("MD5");
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  static final byte[] CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
-  byte[] hashToChars(byte[] hash) {
-    byte[] result = new byte[32];
-    for (int i = 0; i < hash.length; i++) {
-      result[i * 2] = CHARS[(hash[i] >> 4) & 0xf];
-      result[i * 2 + 1] = CHARS[hash[i] & 0xf];
-    }
-    return result;
-  }
-
-  private byte[] computeHash(byte[] message) {
-    md5.reset();
-    md5.update(message);
-    return hashToChars(md5.digest());
   }
 
   byte[] computeHash(String prefix, int count) {
-    return computeHash((prefix + count).getBytes());
+    return Support.hashToChars(Support.computeHash(prefix + count));
   }
 
   private byte findTriple(byte[] hash) {
@@ -103,7 +77,7 @@ public class Day14 extends Day {
     return hash2Cache.computeIfAbsent(message, (s) -> {
       byte[] hash = computeHash(prefix, count);
       for (int i = 0; i < 2016; i++) {
-        hash = computeHash(hash);
+        hash = Support.hashToChars(Support.computeHash(hash));
       }
       return hash;
     });

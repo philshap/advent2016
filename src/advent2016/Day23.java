@@ -24,7 +24,7 @@ public class Day23 extends Day {
     }
 
     private long getValue(String arg) {
-      if (Character.isAlphabetic(arg.charAt(0))) {
+      if (registers.containsKey(arg)) {
         return registers.get(arg);
       }
       return Integer.parseInt(arg);
