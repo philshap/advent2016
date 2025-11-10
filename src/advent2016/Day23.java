@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.LongStream;
 
 public class Day23 extends Day {
   Day23() {
@@ -130,16 +129,12 @@ public class Day23 extends Day {
     return String.valueOf(computer.registers.get("a"));
   }
 
-  long factorial(long n) {
-    return LongStream.range(1, n + 1).reduce(1, (l1, l2) -> l1 * l2);
-  }
-
   @Override
   String part2() {
     Computer computer = Computer.fromInput(input);
     if (computer.instructions.size() > 7) {
       // Using debugger, found that instruction 0-18 compute factorial of "a".
-      computer.registers.put("a", factorial(12L));
+      computer.registers.put("a", Support.factorial(12L));
       // These instructions get toggled.
       computer.toggle(20);
       computer.toggle(22);

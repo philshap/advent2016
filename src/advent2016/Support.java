@@ -8,6 +8,7 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public interface Support {
@@ -30,8 +31,8 @@ public interface Support {
     return NUMBER.matcher(input).results().map(MatchResult::group).map(Integer::parseInt).toList();
   }
 
-  static List<Long> longs(String input) {
-    return NUMBER.matcher(input).results().map(MatchResult::group).map(Long::parseLong).toList();
+  static long factorial(long n) {
+    return LongStream.range(1, n + 1).reduce(1, (l1, l2) -> l1 * l2);
   }
 
   enum MD5 {
