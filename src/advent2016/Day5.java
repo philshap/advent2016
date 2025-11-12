@@ -1,9 +1,6 @@
 package advent2016;
 
 import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Day5 extends Day {
@@ -18,15 +15,11 @@ public class Day5 extends Day {
     return hash[0] == 0 && hash[1] == 0 && (hash[2] >> 4) == 0;
   }
 
-  static final Map<Integer, Character> INT_TO_CHAR =
-      IntStream.range(0, 16).boxed()
-          .collect(Collectors.toMap(Function.identity(), i -> Integer.toHexString(i).charAt(0)));
-
   String part1() {
     return IntStream.iterate(0, i -> i + 1)
         .mapToObj(i -> Support.computeHash(data + i))
         .filter(this::startsWithZeros)
-        .map(hash -> INT_TO_CHAR.get(hash[2] & 0xf))
+        .map(hash -> (char) Support.CHARS[hash[2] & 0xf])
         .limit(8)
         .collect(Support.collectToString());
   }
@@ -40,10 +33,11 @@ public class Day5 extends Day {
         .map(hash -> {
           int pos = hash[2] & 0xf;
           if (pos < password.length && password[pos] == '.') {
-            password[pos] = INT_TO_CHAR.get((hash[3] >> 4) & 0xf);
+            password[pos] = (char) Support.CHARS[(hash[3] >> 4) & 0xf];
           }
           return new String(password);
-        }).dropWhile(s -> s.contains("."))
+        })
+        .dropWhile(s -> s.contains("."))
         .findFirst().orElseThrow();
   }
 

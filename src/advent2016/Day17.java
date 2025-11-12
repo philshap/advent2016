@@ -1,16 +1,5 @@
 package advent2016;
 
-// Two Steps Forward
-// #########
-// #S| | | #
-// #-#-#-#-#
-// # | | | #
-// #-#-#-#-#
-// # | | | #
-// #-#-#-#-#
-// # | | |
-// ####### V
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,22 +11,33 @@ public class Day17 extends Day {
     super(17);
   }
 
-  static int MIN = 0;
-  static int MAX = 4;
-
   record Pos(int x, int y) {
     static final Pos U = new Pos(0, -1);
     static final Pos R = new Pos(1, 0);
     static final Pos D = new Pos(0, 1);
     static final Pos L = new Pos(-1, 0);
     static Map<Pos, Character> DIR_CHAR = Map.of(U, 'U', R, 'R', D, 'D', L, 'L');
-    boolean valid() {
-      return MIN <= x && x < MAX && MIN <= y && y < MAX;
-    }
+
     Pos plus(Pos p) {
       return new Pos(x + p.x, y + p.y);
     }
   }
+
+
+// Two Steps Forward
+// #########
+// #S| | | #
+// #-#-#-#-#
+// # | | | #
+// #-#-#-#-#
+// # | | | #
+// #-#-#-#-#
+// # | | |
+// ####### V
+
+  static int MIN = 0;
+  static int MAX = 4;
+
   static final Pos START = new Pos(0, 0);
   static final Pos END = new Pos(3, 3);
 
@@ -67,7 +67,7 @@ public class Day17 extends Day {
     }
 
     boolean valid() {
-      return pos.valid();
+      return MIN <= pos.x && pos.x < MAX && MIN <= pos.y && pos.y < MAX;
     }
     boolean atEnd() {
       return pos.equals(END);
