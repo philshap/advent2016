@@ -123,14 +123,32 @@ public class Day10 extends Day {
     return -1;
   }
 
+  Bot.LowHigh part1Goal = new Bot.LowHigh(17, 61);
+
   String part1() {
-    Map<Integer, Integer> output = new HashMap<>();
-    return String.valueOf(runFactory(input, output, new Bot.LowHigh(17, 61)));
+    return String.valueOf(runFactory(input, new HashMap<>(), part1Goal));
   }
 
   String part2() {
     Map<Integer, Integer> output = new HashMap<>();
     runFactory(input, output, null);
     return String.valueOf(output.get(0) * output.get(1) * output.get(2));
+  }
+
+  public static void main(String[] args) {
+    Day10 day = new Day10() {
+      @Override
+      String getData() {
+        return """
+            value 5 goes to bot 2
+            bot 2 gives low to bot 1 and high to bot 0
+            value 3 goes to bot 1
+            bot 1 gives low to output 1 and high to bot 0
+            bot 0 gives low to output 2 and high to output 0
+            value 2 goes to bot 2""";
+      }
+    };
+    day.part1Goal = new Bot.LowHigh(2, 5);
+    day.run("2", "30");
   }
 }

@@ -1,6 +1,5 @@
 package advent2016;
 
-import java.io.Console;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +14,8 @@ public class Day23 extends Day {
   record Computer(Map<String, Long> registers, List<String[]> instructions) {
 
     static Computer fromInput(List<String> instructions) {
-      Computer computer = new Computer(new HashMap<>(), instructions.stream().map(s -> s.split(" ")).toList());
+      Computer computer =
+          new Computer(new HashMap<>(), instructions.stream().map(s -> s.split(" ")).toList());
       for (var register : List.of("a", "b", "c", "d")) {
         computer.registers.put(register, 0L);
       }
@@ -31,18 +31,18 @@ public class Day23 extends Day {
 
     static class Debug {
       final Set<Integer> breakpoints = new HashSet<>();
-      boolean stepping = true;
+      // Stop on first line if a TTY is attached.
+      boolean stepping = System.console() != null;
 
       void tick(Computer c, int pc) {
-        Console console = System.console();
-        if (console == null || !stepping || !breakpoints.contains(pc)) {
-          // no TTY attached
+        if (!stepping && !breakpoints.contains(pc)) {
           return;
         }
         while (true) {
-          System.out.printf("%s %2s %-12s%-25s > ", breakpoints.contains(pc) ? '*' : ' ', pc,
-              String.join(" ", c.instructions.get(pc)), c.registers);
-          String[] command = console.readLine().split(" ");
+          String[] command = System.console()
+              .printf("%s %2s %-12s%-25s > ", breakpoints.contains(pc) ? '*' : ' ', pc,
+                  String.join(" ", c.instructions.get(pc)), c.registers)
+              .readLine().split(" ");
           switch (command[0]) {
             case "b":
               int bpc = command.length == 2 ? Integer.parseInt(command[1]) : pc;
@@ -147,10 +147,11 @@ public class Day23 extends Day {
   }
 
   public static void main(String[] args) {
-    Day day = new Day23() {
-      @Override
-      String getData() {
-        return """
+    Day day =
+        new Day23() {
+          @Override
+          String getData() {
+            return """
             cpy 2 a
             tgl a
             tgl a
@@ -158,8 +159,8 @@ public class Day23 extends Day {
             cpy 1 a
             dec a
             dec a""";
-      }
-    };
+          }
+        };
     day.run("3", "3");
   }
 }
